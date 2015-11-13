@@ -1,0 +1,32 @@
+<:Title>
+  {{ Volt.current_user.name }} Progress
+
+<:Body>
+  <h1>Progress</h1>
+
+  <h3>Add Update</h3>
+  <form e-submit="add_check_in" role="form">
+    <div class="form-group">
+      <label>Weight</label>
+      <input class="form-control" type="number" value="{{ page._new_weight }}" />
+    </div>
+  </form>
+
+
+  {{ unless _check_ins.empty? }}
+  <h3>Recent Updates</h3>
+  <table class="check-ins-table">
+    <thead>
+      <th>Date</th>
+      <th>Weight</th>
+      <th>Remove</th>
+    </thead>
+    {{ _check_ins.each do |c| }}
+      <tr>
+        <td>{{ c._date }}</td>
+        <td>{{ c._weight }}</td>
+        <td><button e-click="c.destroy">X</button></td>
+      </tr>
+    {{ end }}
+  </table>
+  {{ end }}
