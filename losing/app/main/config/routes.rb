@@ -9,9 +9,6 @@ client '/password_reset', component: 'user_templates', controller: 'password_res
 client '/forgot', component: 'user_templates', controller: 'login', action: 'forgot'
 client '/account', component: 'user_templates', controller: 'account', action: 'index'
 
-client '/challenges', controller: 'challenges', action: 'index'
-client '/challenges/{{ id }}', controller: 'challenges', action: 'show'
-
 client '/progress', action: 'progress'
 
 # The main route, this should be last. It will match any params not

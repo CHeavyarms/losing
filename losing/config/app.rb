@@ -20,9 +20,6 @@ Volt.configure do |config|
   #
   # For added security we recommend moving the app secret into an environment.  You can
   # setup that like so:
-  #
-  # config.app_secret = ENV['APP_SECRET']
-  #
   config.app_secret = ENV['APP_SECRET'] || 'HmlXzpPosP0st008fcCv8RPXbYyW_LdHsSh747cIXbgxVm-1vVX-tmRhHHAKeBwvdbg'
 
   ###############
