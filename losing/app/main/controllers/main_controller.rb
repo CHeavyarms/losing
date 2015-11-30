@@ -1,6 +1,8 @@
 # By default Volt generates this controller for your Main component
 module Main
   class MainController < Volt::ModelController
+    model :store
+
     def index
       # Add code for when the index view is loaded
     end
@@ -11,7 +13,6 @@ module Main
 
     before_action :require_login
     def progress
-
     end
 
     def add_check_in
