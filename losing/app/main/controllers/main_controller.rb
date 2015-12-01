@@ -16,7 +16,8 @@ module Main
     end
 
     def add_check_in
-      _check_ins << { date: Time.now, weight: page._new_weight }
+
+      _check_ins << { date: Time.now.strftime("%Y-%d-%m %H:%M"), weight: page._new_weight }
       page._new_weight = ''
     end
 

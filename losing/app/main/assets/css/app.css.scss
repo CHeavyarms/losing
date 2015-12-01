@@ -1,1 +1,30 @@
-// Place your apps css here
+h1 {
+  background-color:rgba(0,255,0,0.25);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 200px;
+  border-radius: 5px;
+  clear: both;
+
+}// Place your apps css here
+
+#total-ups {
+  background-color: rgba(0,255,255,0.5);
+  margin-left: auto;
+  margin-right:auto;
+  text-align: center;
+  width: 250px;
+  border-radius: 5px;
+  clear: both;
+}
+
+th {
+  border:5px,0px,5px,0px;
+  padding:5px;
+}
+td {
+  border:5px,0px,5px,0px;
+  padding:5px;
+  margin: auto;
+}
