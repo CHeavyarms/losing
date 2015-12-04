@@ -4,13 +4,21 @@
 <:Body>
   <h1>Progress</h1>
 
-  <h3>{{ _check_ins.size }} Total Updates</h3>
+  <h3 id= "total-ups">{{ _check_ins.size }} Total Updates</h3>
 
   <h3>Add Update</h3>
   <form e-submit="add_check_in" role="form">
     <div class="form-group">
+
       <label>Weight</label>
-      <input class="form-control" type="number" value="{{ page._new_weight }}" />
+      <input class="form-control" type="number" step="any" placeholder="In Pounds" min="0" value="{{ page._new_weight }}" />
+      <label>Height</label>
+      <input class="form-control" type="number" step="any" placeholder="In Inches" min="0" value="{{ page._new_height }}" />
+      <label>Body Fat %</label>
+      <input class="form-control" type="number" step="any" min ="0" max="100" value="{{ page._new_bodyfat }}" />
+      <label>Bench Press</label>
+      <input class="form-control" type="number" min="0" value="{{ page._new_bench}}" />
+      <input type= "submit" value="Submit"/>
     </div>
   </form>
 
@@ -21,14 +29,22 @@
       <thead>
         <th>Date</th>
         <th>Weight</th>
+        <th>Body Fat</th>
+        <th>BMI</th>
+        <th>Bench Press</th>
         <th>Remove</th>
       </thead>
       {{ _check_ins.each do |c| }}
+      {{ store.c.first.then do |d|}}
         <tr>
-          <td>{{ c._date }}</td>
+          <td>{{ c._date.strftime('%a %d %b %Y %I:%M:%S %p')}}</td>
           <td>{{ c._weight }}</td>
+          <td>{{ c._bodyfat }}</td>
+          <td>{{ d._weight}}</td> <!--Not functioning-->
+          <td>{{ c._bench }}</td>
           <td><button e-click="c.destroy">X</button></td>
         </tr>
+      {{ end }}
       {{ end }}
     </table>
     {{ end }}

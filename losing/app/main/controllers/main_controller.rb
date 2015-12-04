@@ -17,8 +17,14 @@ module Main
 
     def add_check_in
 
-      _check_ins << { date: Time.now.strftime("%Y-%d-%m %H:%M"), weight: page._new_weight }
+      _check_ins << { date: Time.now, weight: page._new_weight,\
+         bodyfat: page._new_bodyfat, bench: page._new_bench, height: page._new_height}
       page._new_weight = ''
+      page._new_height = ''
+      page._new_bodyfat = ''
+      page._new_bench = ''
+
+
     end
 
     private
