@@ -35,17 +35,17 @@
         <th>Remove</th>
       </thead>
       {{ _check_ins.each do |c| }}
-      {{ store.c.first.then do |d|}}
         <tr>
           <td>{{ c._date.strftime('%a %d %b %Y %I:%M:%S %p')}}</td>
           <td>{{ c._weight }}</td>
           <td>{{ c._bodyfat }}</td>
-          <td>{{ d._weight}}</td> <!--Not functioning-->
+          <td>{{ ((c._weight.to_i)/(c._height.to_i **2)*703).round(2) }}</td>
           <td>{{ c._bench }}</td>
           <td><button e-click="c.destroy">X</button></td>
         </tr>
+
       {{ end }}
-      {{ end }}
+
     </table>
     {{ end }}
   </div>
