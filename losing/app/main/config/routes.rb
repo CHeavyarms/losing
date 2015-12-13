@@ -10,6 +10,8 @@ client '/forgot', component: 'user_templates', controller: 'login', action: 'for
 client '/account', component: 'user_templates', controller: 'account', action: 'index'
 
 client '/progress', action: 'progress'
+client '/goals', action: 'goals'
+
 
 # The main route, this should be last. It will match any params not
 # previously matched.

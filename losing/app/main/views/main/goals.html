@@ -1,0 +1,112 @@
+<:Title>
+  {{ Volt.current_user.name }} Goals
+
+<:Body>
+  <h1>Goals</h1>
+
+<h3>Starting Point</h3>
+  <form e-submit="add_first_check_in" role="form">
+    <div class="form-group">
+      <label>Height</label>
+      <input class="form-control" type="number" step="any" placeholder="In Inches" min="0" value="{{ page._new_heightf }}" />
+      <label>Starting Weight</label>
+      <input class="form-control" type="number" step="any" placeholder="In Pounds" min="0" value="{{ page._new_weightf }}" />
+      <label>Starting Body Fat %</label>
+      <input class="form-control" type="number" step="any" min ="0" max="100" value="{{ page._new_bodyfatf }}" />
+      <label>Starting Bench Press</label>
+      <input class="form-control" type="number" min="0" value="{{ page._new_benchf}}" />
+      <input type= "submit" value="Submit"/>
+    </div>
+  </form>
+
+  <div class="recent-updates">
+    {{ if _first_check_ins.size.then { |s| s > 0 } }}
+    <h3>The Beginning</h3>
+    <table class="check-ins-table">
+      <thead>
+        <th>Date</th>
+        <th>Starting Weight</th>
+        <th>Starting Body Fat</th>
+        <th>Starting BMI</th>
+        <th>Starting Bench Press</th>
+        <th>Remove</th>
+      </thead>
+      {{ _first_check_ins.each do |f| }}
+        <tr id="first-weight">
+          <td>{{ f._date.strftime('%a %d %b %Y %I:%M %p')}}</td>
+          <td>{{ f._weight }}</td>
+          <td>{{ f._bodyfat }}</td>
+          <td>{{ ((f._weight.to_i)/(f._height.to_i **2)*703).round(2)}}</td>
+          <td>{{ f._bench }}</td>
+          <td><button e-click="f.destroy">X</button></td>
+        </tr>
+      {{ end }}
+    </table>
+    {{ end }}
+  </div>
+
+
+  <h3>Desired End</h3>
+  <form e-submit="add_goal" role="form">
+    <div class="form-group">
+      <label>Height</label>
+      <input class="form-control" type="number" step="any" placeholder="In Inches" min="0" value="{{ page._new_heightg }}" />
+      <label>Starting Weight</label>
+      <input class="form-control" type="number" step="any" placeholder="In Pounds" min="0" value="{{ page._new_weightg }}" />
+      <label>Starting Body Fat %</label>
+      <input class="form-control" type="number" step="any" min ="0" max="100" value="{{ page._new_bodyfatg }}" />
+      <label>Starting Bench Press</label>
+      <input class="form-control" type="number" min="0" value="{{ page._new_benchg }}" />
+      <input type= "submit" value="Submit"/>
+    </div>
+  </form>
+
+  <div class="initial-goal">
+    {{ if _goals.size.then { |r| r > 0 } }}
+    <h3>The End</h3>
+    <table class="goals-table">
+      <thead>
+        <th>Date</th>
+        <th>Goal Weight</th>
+        <th>Goal Body Fat</th>
+        <th>Goal BMI</th>
+        <th>Goal Bench Press</th>
+        <th>Remove</th>
+      </thead>
+      {{ _goals.each do |d| }}
+        <tr>
+          <td>{{ d._date.strftime('%a %d %b %Y %I:%M %p')}}</td>
+          <td>{{ d._weight }}</td>
+          <td>{{ d._bodyfat }}</td>
+          <td>{{ ((d._weight.to_i)/(d._height.to_i **2)*703).round(2)}}</td>
+          <td>{{ d._bench }}</td>
+          <td><button e-click="d.destroy">X</button></td>
+        </tr>
+      {{ end }}
+    </table>
+    {{ end }}
+  </div>
+
+<div id ="Goal-Change">
+    {{ if _goals.size.then { |k| k > 0 } }}
+    <h3> Desired Change</h3>
+    <table class="goal-diff">
+      <thead>
+        <th>Weight</th>
+        <th>BMI</th>
+        <th>Body Fat</th>
+        <th>Bench Press</th>
+      </thead>
+      {{ _first_check_ins.each do |f| }}
+      {{ _goals.each do |d| }}
+        <tr>
+          <td>{{d._weight.to_i - f._weight.to_i}}</td>
+          <td>{{(((d._weight.to_i)/(d._height.to_i **2)*703)-((f._weight.to_i)/(f._height.to_i **2)*703)).round(2)}}</td>
+          <td>{{d._bodyfat.to_i - f._bodyfat.to_i}}%</td>
+          <td>+{{d._bench.to_i - f._bench.to_i }}</td>
+        </tr>
+      {{end}}
+      {{end}}
+      </table>
+    {{end}}
+  </div>

@@ -14,18 +14,45 @@ module Main
     before_action :require_login
     def progress
     end
+    def add_first_check_in
+
+      _first_check_ins << { date: Time.now, weight: page._new_weightf,\
+         bodyfat: page._new_bodyfatf, bench: page._new_benchf, height: page._new_heightf }
+      page._new_weightf = ''
+      page._new_heightf = ''
+      page._new_bodyfatf = ''
+      page._new_benchf = ''
+
+    end
 
     def add_check_in
 
       _check_ins << { date: Time.now, weight: page._new_weight,\
-         bodyfat: page._new_bodyfat, bench: page._new_bench, height: page._new_height}
+         bodyfat: page._new_bodyfat, bench: page._new_bench, height: page._new_height }
       page._new_weight = ''
       page._new_height = ''
       page._new_bodyfat = ''
       page._new_bench = ''
 
+    end
+
+
+
+
+    def add_goal
+
+      _goals << { date: Time.now, weight: page._new_weightg,\
+          bodyfat: page._new_bodyfatg, bench: page._new_benchg, height: page._new_heightg }
+          page._new_weightg = ''
+          page._new_heightg = ''
+          page._new_bodyfatg = ''
+          page._new_benchg = ''
 
     end
+
+
+
+
 
     private
 

@@ -3,13 +3,17 @@
 
 <:Body>
   <h1>Progress</h1>
-
-  <h3 id= "total-ups">{{ _check_ins.size }} Total Updates</h3>
+  <!-- Check_ins does not currently include _first_check_ins -->
+  <h3 id= "total-ups"> _check_ins = {{ _check_ins.size }} </h3>
+  <!-- Update Checker returns false if accessing progress.html first,
+  if goals.html is clicked on and one returns to progress it returns true.
+  The odd part is that it shows  _first_check_ins.size == 1-->
+  <h3 id= "total-ups">First Update checker = {{ _first_check_ins.any?.to_s }}</h3>
+  <h3 id= "total-ups">_first_check_ins = {{ _first_check_ins.size}} </h3>
 
   <h3>Add Update</h3>
   <form e-submit="add_check_in" role="form">
     <div class="form-group">
-
       <label>Weight</label>
       <input class="form-control" type="number" step="any" placeholder="In Pounds" min="0" value="{{ page._new_weight }}" />
       <label>Height</label>
@@ -23,7 +27,7 @@
   </form>
 
   <div class="recent-updates">
-    {{ if _check_ins.size.then { |s| s > 0 } }}
+    {{ if _first_check_ins.size.then or  _check_ins.size.then { |s| s > 0 } }}
     <h3>Recent Updates</h3>
     <table class="check-ins-table">
       <thead>
@@ -34,18 +38,28 @@
         <th>Bench Press</th>
         <th>Remove</th>
       </thead>
+
       {{ _check_ins.each do |c| }}
         <tr>
-          <td>{{ c._date.strftime('%a %d %b %Y %I:%M:%S %p')}}</td>
+          <td>{{ c._date.strftime('%a %d %b %Y %I:%M %p')}}</td>
           <td>{{ c._weight }}</td>
           <td>{{ c._bodyfat }}</td>
-          <td>{{ ((c._weight.to_i)/(c._height.to_i **2)*703).round(2) }}</td>
+          <td>{{ ((c._weight.to_i)/(c._height.to_i **2)*703).round(2)}}</td>
           <td>{{ c._bench }}</td>
           <td><button e-click="c.destroy">X</button></td>
         </tr>
-
       {{ end }}
 
+        {{ _first_check_ins.each do |r|}}
+        <tr id="first-weight">
+          <td>{{ r._date.strftime('%a %d %b %Y %I:%M %p')}}</td>
+          <td>{{ r._weight }}</td>
+          <td>{{ r._bodyfat }}</td>
+          <td>{{ ((r._weight.to_i)/(r._height.to_i **2)*703).round(2)}}</td>
+          <td>{{ r._bench }}</td>
+          <td><button e-click="r.destroy">X</button></td>
+        </tr>
+        {{ end }}
     </table>
     {{ end }}
   </div>
